@@ -1,592 +1,585 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2867
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative Circle Pattern Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
 
-\f0\fs24 \cf0 <!DOCTYPE html>\
-<html lang="en">\
-<head>\
-    <meta charset="UTF-8">\
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <title>Generative Circle Pattern Pro</title>\
-    <script src="https://cdn.tailwindcss.com"></script>\
-    <style>\
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&display=swap');\
-        \
-        body \{\
-            font-family: 'Space Grotesk', sans-serif;\
-            background-color: #0f172a;\
-            color: #e2e8f0;\
-        \}\
-\
-        /* Custom range slider styling */\
-        input[type=range] \{\
-            -webkit-appearance: none;\
-            background: transparent;\
-        \}\
-        input[type=range]::-webkit-slider-thumb \{\
-            -webkit-appearance: none;\
-            height: 16px;\
-            width: 16px;\
-            border-radius: 50%;\
-            background: #38bdf8;\
-            cursor: pointer;\
-            margin-top: -6px;\
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);\
-        \}\
-        input[type=range]::-webkit-slider-runnable-track \{\
-            width: 100%;\
-            height: 4px;\
-            cursor: pointer;\
-            background: #334155;\
-            border-radius: 2px;\
-        \}\
-        \
-        /* Custom Color Picker wrapper */\
-        .color-wrapper input[type="color"] \{\
-            -webkit-appearance: none;\
-            border: none;\
-            width: 32px;\
-            height: 32px;\
-            border-radius: 50%;\
-            cursor: pointer;\
-            padding: 0;\
-            overflow: hidden;\
-            background: none;\
-        \}\
-        .color-wrapper input[type="color"]::-webkit-color-swatch-wrapper \{\
-            padding: 0;\
-        \}\
-        .color-wrapper input[type="color"]::-webkit-color-swatch \{\
-            border: 2px solid #475569;\
-            border-radius: 50%;\
-        \}\
-\
-        .canvas-container \{\
-            background-image: \
-                linear-gradient(45deg, #1e293b 25%, transparent 25%), \
-                linear-gradient(-45deg, #1e293b 25%, transparent 25%), \
-                linear-gradient(45deg, transparent 75%, #1e293b 75%), \
-                linear-gradient(-45deg, transparent 75%, #1e293b 75%);\
-            background-size: 20px 20px;\
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;\
-        \}\
-        \
-        /* Hide scrollbar for clean UI */\
-        .no-scrollbar::-webkit-scrollbar \{\
-            display: none;\
-        \}\
-        .no-scrollbar \{\
-            -ms-overflow-style: none;\
-            scrollbar-width: none;\
-        \}\
-    </style>\
-</head>\
-<body class="h-screen flex flex-col md:flex-row overflow-hidden">\
-\
-    <!-- Sidebar Controls -->\
-    <div class="w-full md:w-80 bg-slate-900 border-r border-slate-800 p-6 flex flex-col gap-5 overflow-y-auto z-10 shadow-xl no-scrollbar">\
-        <div>\
-            <h1 class="text-[16px] font-bold text-sky-400 mb-1">Circle Gen <span class="text-xs align-top border border-sky-400 rounded px-1 ml-1">PRO</span></h1>\
-            <p class="text-xs text-slate-500">Halftone Image Processor</p>\
-        </div>\
-\
-        <!-- Upload Section -->\
-        <div class="p-4 border border-dashed border-slate-600 rounded-lg hover:border-sky-400 transition-colors bg-slate-800/50">\
-            <label class="block text-sm font-medium text-slate-300 mb-2">1. Upload Image</label>\
-            <input type="file" id="imageInput" accept="image/*" class="block w-full text-sm text-slate-400\
-              file:mr-4 file:py-2 file:px-4\
-              file:rounded-full file:border-0\
-              file:text-xs file:font-semibold\
-              file:bg-sky-950 file:text-sky-400\
-              hover:file:bg-sky-900\
-              cursor-pointer\
-            "/>\
-        </div>\
-\
-        <!-- Reset Button -->\
-        <div>\
-            <button id="resetBtn" class="w-full text-xs text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 rounded py-2 transition-colors">\
-                Revert to default settings\
-            </button>\
-        </div>\
-\
-        <!-- Color Controls -->\
-        <div class="grid grid-cols-2 gap-4">\
-            <div class="bg-slate-800/50 p-3 rounded-lg flex flex-col items-center">\
-                <label class="text-xs text-slate-400 mb-2">Line Color</label>\
-                <div class="flex items-center gap-2">\
-                    <div class="color-wrapper hover:scale-110 transition-transform">\
-                        <input type="color" id="lineColorInput" value="#FC4F4F">\
-                    </div>\
-                    <input type="text" id="lineColorText" value="#FC4F4F" class="w-16 bg-transparent text-xs text-slate-300 font-mono border-b border-slate-600 focus:border-sky-400 outline-none text-center pb-1 uppercase">\
-                </div>\
-            </div>\
-            <div class="bg-slate-800/50 p-3 rounded-lg flex flex-col items-center">\
-                <label class="text-xs text-slate-400 mb-2">Background</label>\
-                <div class="flex items-center gap-2">\
-                    <div class="color-wrapper hover:scale-110 transition-transform">\
-                        <input type="color" id="bgColorInput" value="#ffffff">\
-                    </div>\
-                    <input type="text" id="bgColorText" value="#ffffff" class="w-16 bg-transparent text-xs text-slate-300 font-mono border-b border-slate-600 focus:border-sky-400 outline-none text-center pb-1 uppercase">\
-                </div>\
-            </div>\
-        </div>\
-\
-        <!-- Sliders -->\
-        <div class="space-y-5">\
-            <div>\
-                <div class="flex justify-between mb-1">\
-                    <label class="text-sm font-medium text-slate-300">Circle Density</label>\
-                    <span id="gapValue" class="text-xs text-sky-400 font-mono">12px</span>\
-                </div>\
-                <input type="range" id="gapSlider" min="4" max="50" value="12" step="1" class="w-full">\
-            </div>\
-\
-            <div>\
-                <div class="flex justify-between mb-1">\
-                    <label class="text-sm font-medium text-slate-300">Max Thickness</label>\
-                    <span id="thickValue" class="text-xs text-sky-400 font-mono">12px</span>\
-                </div>\
-                <input type="range" id="thicknessSlider" min="1" max="30" value="12" step="0.5" class="w-full">\
-            </div>\
-\
-            <div>\
-                <div class="flex justify-between mb-1">\
-                    <label class="text-sm font-medium text-slate-300">Min Thickness</label>\
-                    <span id="thinValue" class="text-xs text-sky-400 font-mono">0.1px</span>\
-                </div>\
-                <input type="range" id="minThicknessSlider" min="0.1" max="10" value="0.1" step="0.1" class="w-full">\
-            </div>\
-            \
-            <div>\
-                <div class="flex justify-between mb-1">\
-                    <label class="text-sm font-medium text-slate-300">Contrast</label>\
-                    <span id="contrastValue" class="text-xs text-sky-400 font-mono">1.3</span>\
-                </div>\
-                <input type="range" id="contrastSlider" min="0.5" max="3" value="1.3" step="0.1" class="w-full">\
-            </div>\
-\
-            <div class="flex items-center justify-between pt-2">\
-                 <label class="relative inline-flex items-center cursor-pointer">\
-                    <input type="checkbox" id="invertLogic" class="sr-only peer">\
-                    <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-sky-500"></div>\
-                    <span class="ml-2 text-sm text-slate-300">Invert Logic</span>\
-                </label>\
-            </div>\
-        </div>\
-\
-        <!-- Export Settings -->\
-        <div class="mt-auto pt-6 border-t border-slate-800 space-y-4">\
-            <div>\
-                <label class="block text-sm font-medium text-slate-300 mb-2">Canvas Size</label>\
-                <select id="sizeSelect" class="w-full bg-slate-800 text-slate-300 text-sm rounded p-2 border border-slate-700 focus:border-sky-500 outline-none">\
-                    <option value="1920x1080" selected>Landscape (1920 x 1080)</option>\
-                    <option value="1080x1920">Portrait (1080 x 1920)</option>\
-                    <option value="2160x2160">Square (2160 x 2160)</option>\
-                </select>\
-            </div>\
-\
-            <div class="flex gap-2">\
-                <select id="formatSelect" class="bg-slate-800 text-slate-300 text-sm rounded p-2 border border-slate-700 flex-1 outline-none focus:border-sky-500">\
-                    <option value="webp" selected>WebP Image</option>\
-                    <option value="png">PNG Image</option>\
-                </select>\
-                <button id="downloadBtn" class="flex-[2] bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-4 rounded shadow-lg shadow-sky-500/20 transition-all transform hover:scale-[1.02]">\
-                    Download\
-                </button>\
-            </div>\
-        </div>\
-    </div>\
-\
-    <!-- Main Canvas Area -->\
-    <div class="flex-1 bg-black flex items-center justify-center p-4 canvas-container relative overflow-hidden">\
-        <div id="loadingMsg" class="absolute text-slate-400 bg-slate-900/80 px-4 py-2 rounded backdrop-blur-sm animate-pulse pointer-events-none z-20" style="display:none;">\
-            Processing...\
-        </div>\
-        <!-- We use a wrapper to center the canvas and handle scaling -->\
-        <div class="relative shadow-2xl rounded-sm max-w-full max-h-full flex items-center justify-center">\
-            <canvas id="mainCanvas" class="max-w-full max-h-full object-contain"></canvas>\
-        </div>\
-    </div>\
-\
-    <script>\
-        /**\
-         * The Engine Room\
-         */\
-        const canvas = document.getElementById('mainCanvas');\
-        const ctx = canvas.getContext('2d');\
-        const fileInput = document.getElementById('imageInput');\
-        \
-        // State variables\
-        let sourceImage = new Image();\
-        let imageLoaded = false;\
-        \
-        // Helper canvas to read pixel data efficiently\
-        const bufferCanvas = document.createElement('canvas');\
-        const bufferCtx = bufferCanvas.getContext('2d');\
-\
-        // Defaults object for easy resetting\
-        const defaults = \{\
-            gap: 12,\
-            maxThickness: 12,\
-            minThickness: 0.1,\
-            contrast: 1.3,\
-            invertLogic: false,\
-            lineColor: '#FC4F4F',\
-            bgColor: '#ffffff',\
-            width: 1920,\
-            height: 1080,\
-            format: 'webp',\
-            sizeLabel: '1920x1080'\
-        \};\
-\
-        // Configuration (starts with defaults)\
-        const config = \{ ...defaults \};\
-\
-        // UI Elements\
-        const ui = \{\
-            gap: document.getElementById('gapSlider'),\
-            thick: document.getElementById('thicknessSlider'),\
-            thin: document.getElementById('minThicknessSlider'),\
-            contrast: document.getElementById('contrastSlider'),\
-            invert: document.getElementById('invertLogic'),\
-            \
-            lineColor: document.getElementById('lineColorInput'),\
-            lineColorText: document.getElementById('lineColorText'),\
-            bgColor: document.getElementById('bgColorInput'),\
-            bgColorText: document.getElementById('bgColorText'),\
-            \
-            size: document.getElementById('sizeSelect'),\
-            format: document.getElementById('formatSelect'),\
-            \
-            download: document.getElementById('downloadBtn'),\
-            reset: document.getElementById('resetBtn'),\
-            loading: document.getElementById('loadingMsg'),\
-            \
-            // Value displays\
-            gapVal: document.getElementById('gapValue'),\
-            thickVal: document.getElementById('thickValue'),\
-            thinVal: document.getElementById('thinValue'),\
-            contrastVal: document.getElementById('contrastValue')\
-        \};\
-\
-        // Initialize\
-        function init() \{\
-            updateCanvasSize();\
-            // drawPlaceholder is called inside updateCanvasSize\
-        \}\
-\
-        function updateCanvasSize() \{\
-            // Check if ui.size.value contains 'x' or is just a preset key\
-            const val = ui.size.value;\
-            if(val.includes('x')) \{\
-                const [w, h] = val.split('x').map(Number);\
-                config.width = w;\
-                config.height = h;\
-            \}\
-            \
-            canvas.width = config.width;\
-            canvas.height = config.height;\
-            \
-            // Redraw immediately if image exists, otherwise placeholder\
-            if (imageLoaded) render();\
-            else drawPlaceholder();\
-        \}\
-\
-        function resetToDefaults() \{\
-            // Reset config\
-            Object.assign(config, defaults);\
-            \
-            // Reset UI Slider Values\
-            ui.gap.value = config.gap;\
-            ui.thick.value = config.maxThickness;\
-            ui.thin.value = config.minThickness;\
-            ui.contrast.value = config.contrast;\
-            ui.invert.checked = config.invertLogic;\
-            \
-            // Reset Labels\
-            ui.gapVal.textContent = config.gap + 'px';\
-            ui.thickVal.textContent = config.maxThickness + 'px';\
-            ui.thinVal.textContent = config.minThickness + 'px';\
-            ui.contrastVal.textContent = config.contrast;\
-            \
-            // Reset Colors\
-            ui.lineColor.value = config.lineColor;\
-            ui.lineColorText.value = config.lineColor;\
-            ui.bgColor.value = config.bgColor;\
-            ui.bgColorText.value = config.bgColor;\
-            \
-            // Reset Dropdowns\
-            ui.size.value = config.sizeLabel;\
-            ui.format.value = config.format;\
-            \
-            // Trigger update\
-            updateCanvasSize();\
-        \}\
-\
-        function drawPlaceholder() \{\
-            ctx.fillStyle = config.bgColor;\
-            ctx.fillRect(0, 0, canvas.width, canvas.height);\
-            \
-            const centerX = canvas.width / 2;\
-            const centerY = canvas.height / 2;\
-            // Calculate max radius to cover the furthest corner\
-            const maxRadius = Math.sqrt(Math.pow(Math.max(centerX, canvas.width-centerX), 2) + Math.pow(Math.max(centerY, canvas.height-centerY), 2));\
-\
-            ctx.lineCap = 'round';\
-            ctx.strokeStyle = config.lineColor;\
-            \
-            const step = parseInt(config.gap);\
-\
-            // Start closer to center (step / 2) to reduce hole size\
-            for (let r = step / 2; r < maxRadius; r += step) \{\
-                ctx.beginPath();\
-                // Close the loop by going slightly past 2PI\
-                for (let angle = 0; angle <= Math.PI * 2 + 0.1; angle += 0.05) \{\
-                    const x = centerX + Math.cos(angle) * r;\
-                    const y = centerY + Math.sin(angle) * r;\
-                    \
-                    const dist = Math.sqrt((x-centerX)**2 + (y-centerY)**2);\
-                    const wave = Math.sin(dist * 0.02) * Math.cos(angle * 5);\
-                    const thickness = map(wave, -1, 1, parseFloat(config.minThickness), parseFloat(config.maxThickness));\
-                    \
-                    ctx.lineWidth = thickness;\
-                    if (angle === 0) ctx.moveTo(x, y);\
-                    else ctx.lineTo(x, y);\
-                    \
-                    ctx.stroke();\
-                    ctx.beginPath();\
-                    ctx.moveTo(x, y);\
-                \}\
-            \}\
-        \}\
-\
-        function render() \{\
-            if (!imageLoaded) return;\
-            \
-            ui.loading.style.display = 'block';\
-            ui.loading.textContent = "Rendering Canvas...";\
-\
-            requestAnimationFrame(() => \{\
-                // 1. Clear & Fill Background\
-                ctx.fillStyle = config.bgColor;\
-                ctx.fillRect(0, 0, canvas.width, canvas.height);\
-\
-                // 2. Setup Line\
-                ctx.strokeStyle = config.lineColor;\
-                ctx.lineCap = 'butt';\
-\
-                const centerX = canvas.width / 2;\
-                const centerY = canvas.height / 2;\
-                // Calculate max radius to cover the corners for rectangle\
-                const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY) * (canvas.width > canvas.height ? (canvas.width/canvas.height) : 1.5); \
-                // A simpler robust calculation for maxRadius to corner:\
-                const realMaxRadius = Math.sqrt(Math.pow(canvas.width/2, 2) + Math.pow(canvas.height/2, 2));\
-\
-\
-                // 3. Prepare Image Data (Resized to fit canvas)\
-                bufferCanvas.width = config.width;\
-                bufferCanvas.height = config.height;\
-                \
-                // Scale image to 'cover' the canvas (aspect ratio fill)\
-                const scale = Math.max(config.width / sourceImage.width, config.height / sourceImage.height);\
-                const x = (config.width / 2) - (sourceImage.width / 2) * scale;\
-                const y = (config.height / 2) - (sourceImage.height / 2) * scale;\
-                \
-                bufferCtx.clearRect(0,0, config.width, config.height);\
-                bufferCtx.drawImage(sourceImage, x, y, sourceImage.width * scale, sourceImage.height * scale);\
-                \
-                const pixelData = bufferCtx.getImageData(0, 0, config.width, config.height).data;\
-\
-                // 4. Draw Loops\
-                const step = parseInt(config.gap);\
-                \
-                // Start r at step/2 (50% smaller hole)\
-                for (let r = step / 2; r < realMaxRadius + step; r += step) \{\
-                    ctx.beginPath();\
-                    \
-                    const circumference = 2 * Math.PI * r;\
-                    // Aim for segment length of ~2px for smoothness\
-                    const angleStep = (Math.PI * 2) / (circumference / 2); \
-                    const safeAngleStep = Math.max(angleStep, 0.01); \
-\
-                    let firstPoint = true;\
-                    \
-                    // Close the loop by going slightly past 2PI\
-                    for (let angle = 0; angle <= Math.PI * 2 + safeAngleStep; angle += safeAngleStep) \{\
-                        const x = centerX + Math.cos(angle) * r;\
-                        const y = centerY + Math.sin(angle) * r;\
-\
-                        // FIX: Removed strict bounds check (continue block) to allow drawing over edges\
-                        \
-                        // Clamp coordinates to image bounds for pixel lookup\
-                        // This prevents errors when x/y go off-canvas, while still allowing the line to be drawn\
-                        const lookupX = Math.max(0, Math.min(config.width - 1, Math.floor(x)));\
-                        const lookupY = Math.max(0, Math.min(config.height - 1, Math.floor(y)));\
-\
-                        // Pixel lookup uses full width\
-                        const pixelIndex = (lookupY * config.width + lookupX) * 4;\
-                        const red = pixelData[pixelIndex];\
-                        const green = pixelData[pixelIndex + 1];\
-                        const blue = pixelData[pixelIndex + 2];\
-                        \
-                        let brightness = (0.299 * red + 0.587 * green + 0.114 * blue) / 255; // 0 (dark) to 1 (light)\
-\
-                        // Contrast\
-                        brightness = (brightness - 0.5) * config.contrast + 0.5;\
-                        brightness = Math.max(0, Math.min(1, brightness));\
-\
-                        let thickness;\
-                        if(config.invertLogic) \{\
-                             // Light = Thick\
-                             thickness = map(brightness, 0, 1, parseFloat(config.minThickness), parseFloat(config.maxThickness));\
-                        \} else \{\
-                             // Dark = Thick\
-                             thickness = map(brightness, 0, 1, parseFloat(config.maxThickness), parseFloat(config.minThickness));\
-                        \}\
-\
-                        ctx.lineWidth = thickness;\
-\
-                        if (firstPoint) \{\
-                            ctx.moveTo(x, y);\
-                            firstPoint = false;\
-                        \} else \{\
-                            ctx.lineTo(x, y);\
-                            ctx.stroke();\
-                            ctx.beginPath();\
-                            ctx.moveTo(x, y);\
-                        \}\
-                    \}\
-                \}\
-                \
-                ui.loading.style.display = 'none';\
-            \});\
-        \}\
-\
-        function triggerDownload(url, filename) \{\
-            const link = document.createElement('a');\
-            link.download = filename;\
-            link.href = url;\
-            link.click();\
-        \}\
-\
-        function map(value, low1, high1, low2, high2) \{\
-            return low2 + (high2 - low2) * (value - low1) / (high1 - low1);\
-        \}\
-\
-        // --- Event Listeners ---\
-\
-        fileInput.addEventListener('change', (e) => \{\
-            const file = e.target.files[0];\
-            if (file) \{\
-                const reader = new FileReader();\
-                reader.onload = (event) => \{\
-                    sourceImage = new Image();\
-                    sourceImage.onload = () => \{\
-                        imageLoaded = true;\
-                        render();\
-                    \};\
-                    sourceImage.src = event.target.result;\
-                \};\
-                reader.readAsDataURL(file);\
-            \}\
-        \});\
-\
-        // Config Updates\
-        const updateConfig = (key, valueElement, isFloat = false) => (e) => \{\
-            config[key] = isFloat ? parseFloat(e.target.value) : parseInt(e.target.value);\
-            if(valueElement) valueElement.textContent = config[key] + (isFloat ? '' : 'px');\
-            if (imageLoaded) render(); else drawPlaceholder();\
-        \};\
-\
-        ui.gap.addEventListener('input', updateConfig('gap', ui.gapVal));\
-        ui.thick.addEventListener('input', updateConfig('maxThickness', ui.thickVal, true));\
-        ui.thin.addEventListener('input', updateConfig('minThickness', ui.thinVal, true));\
-        ui.contrast.addEventListener('input', updateConfig('contrast', ui.contrastVal, true));\
-\
-        // Sync Color Inputs (Picker <-> Text)\
-        function updateColor(key, value) \{\
-            config[key] = value;\
-            if(key === 'lineColor') \{\
-                ui.lineColor.value = value;\
-                ui.lineColorText.value = value;\
-            \} else \{\
-                ui.bgColor.value = value;\
-                ui.bgColorText.value = value;\
-            \}\
-            if (imageLoaded) render(); else drawPlaceholder();\
-        \}\
-\
-        // Line Color Listeners\
-        ui.lineColor.addEventListener('input', (e) => updateColor('lineColor', e.target.value));\
-        ui.lineColorText.addEventListener('input', (e) => updateColor('lineColor', e.target.value));\
-        ui.lineColorText.addEventListener('change', (e) => \{\
-            // Validate hex on blur/enter\
-            if(!/^#[0-9A-F]\{6\}$/i.test(e.target.value)) \{\
-                e.target.value = config.lineColor; // Revert if invalid\
-            \} else \{\
-                updateColor('lineColor', e.target.value);\
-            \}\
-        \});\
-\
-        // Bg Color Listeners\
-        ui.bgColor.addEventListener('input', (e) => updateColor('bgColor', e.target.value));\
-        ui.bgColorText.addEventListener('input', (e) => updateColor('bgColor', e.target.value));\
-        ui.bgColorText.addEventListener('change', (e) => \{\
-             if(!/^#[0-9A-F]\{6\}$/i.test(e.target.value)) \{\
-                e.target.value = config.bgColor;\
-            \} else \{\
-                updateColor('bgColor', e.target.value);\
-            \}\
-        \});\
-\
-\
-        // Invert Logic\
-        ui.invert.addEventListener('change', (e) => \{\
-            config.invertLogic = e.target.checked;\
-            if (imageLoaded) render(); else drawPlaceholder();\
-        \});\
-\
-        // Size\
-        ui.size.addEventListener('change', (e) => \{\
-            updateCanvasSize();\
-        \});\
-\
-        // Reset\
-        ui.reset.addEventListener('click', resetToDefaults);\
-\
-        // Download Handler\
-        ui.download.addEventListener('click', () => \{\
-            const format = ui.format.value;\
-            \
-            ui.loading.style.display = 'block';\
-            ui.loading.textContent = "Encoding...";\
-\
-            // Use setTimeout to allow UI to render the loading message\
-            setTimeout(() => \{\
-                let url;\
-                let filename;\
-\
-                if (format === 'webp') \{\
-                    // WebP export (0.9 quality)\
-                    url = canvas.toDataURL('image/webp', 0.9);\
-                    filename = 'circle-pattern-pro.webp';\
-                \} else \{\
-                    url = canvas.toDataURL('image/png');\
-                    filename = 'circle-pattern-pro.png';\
-                \}\
-                \
-                triggerDownload(url, filename);\
-                ui.loading.style.display = 'none';\
-            \}, 50);\
-        \});\
-\
-        // Boot\
-        init();\
-\
-    </script>\
-</body>\
-</html>}
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
+        }
+        
+        /* Custom Color Picker wrapper */
+        .color-wrapper input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+            background: none;
+        }
+        .color-wrapper input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        .color-wrapper input[type="color"]::-webkit-color-swatch {
+            border: 2px solid #475569;
+            border-radius: 50%;
+        }
+
+        .canvas-container {
+            background-image: 
+                linear-gradient(45deg, #1e293b 25%, transparent 25%), 
+                linear-gradient(-45deg, #1e293b 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #1e293b 75%), 
+                linear-gradient(-45deg, transparent 75%, #1e293b 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+        
+        /* Hide scrollbar for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Sidebar Controls -->
+    <div class="w-full md:w-80 bg-slate-900 border-r border-slate-800 p-6 flex flex-col gap-5 overflow-y-auto z-10 shadow-xl no-scrollbar">
+        <div>
+            <h1 class="text-[16px] font-bold text-sky-400 mb-1">Circle Gen <span class="text-xs align-top border border-sky-400 rounded px-1 ml-1">PRO</span></h1>
+            <p class="text-xs text-slate-500">Halftone Image Processor</p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="p-4 border border-dashed border-slate-600 rounded-lg hover:border-sky-400 transition-colors bg-slate-800/50">
+            <label class="block text-sm font-medium text-slate-300 mb-2">1. Upload Image</label>
+            <input type="file" id="imageInput" accept="image/*" class="block w-full text-sm text-slate-400
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-xs file:font-semibold
+              file:bg-sky-950 file:text-sky-400
+              hover:file:bg-sky-900
+              cursor-pointer
+            "/>
+        </div>
+
+        <!-- Reset Button -->
+        <div>
+            <button id="resetBtn" class="w-full text-xs text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 rounded py-2 transition-colors">
+                Revert to default settings
+            </button>
+        </div>
+
+        <!-- Color Controls -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-slate-800/50 p-3 rounded-lg flex flex-col items-center">
+                <label class="text-xs text-slate-400 mb-2">Line Color</label>
+                <div class="flex items-center gap-2">
+                    <div class="color-wrapper hover:scale-110 transition-transform">
+                        <input type="color" id="lineColorInput" value="#FC4F4F">
+                    </div>
+                    <input type="text" id="lineColorText" value="#FC4F4F" class="w-16 bg-transparent text-xs text-slate-300 font-mono border-b border-slate-600 focus:border-sky-400 outline-none text-center pb-1 uppercase">
+                </div>
+            </div>
+            <div class="bg-slate-800/50 p-3 rounded-lg flex flex-col items-center">
+                <label class="text-xs text-slate-400 mb-2">Background</label>
+                <div class="flex items-center gap-2">
+                    <div class="color-wrapper hover:scale-110 transition-transform">
+                        <input type="color" id="bgColorInput" value="#ffffff">
+                    </div>
+                    <input type="text" id="bgColorText" value="#ffffff" class="w-16 bg-transparent text-xs text-slate-300 font-mono border-b border-slate-600 focus:border-sky-400 outline-none text-center pb-1 uppercase">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sliders -->
+        <div class="space-y-5">
+            <div>
+                <div class="flex justify-between mb-1">
+                    <label class="text-sm font-medium text-slate-300">Circle Density</label>
+                    <span id="gapValue" class="text-xs text-sky-400 font-mono">12px</span>
+                </div>
+                <input type="range" id="gapSlider" min="4" max="50" value="12" step="1" class="w-full">
+            </div>
+
+            <div>
+                <div class="flex justify-between mb-1">
+                    <label class="text-sm font-medium text-slate-300">Max Thickness</label>
+                    <span id="thickValue" class="text-xs text-sky-400 font-mono">12px</span>
+                </div>
+                <input type="range" id="thicknessSlider" min="1" max="30" value="12" step="0.5" class="w-full">
+            </div>
+
+            <div>
+                <div class="flex justify-between mb-1">
+                    <label class="text-sm font-medium text-slate-300">Min Thickness</label>
+                    <span id="thinValue" class="text-xs text-sky-400 font-mono">0.1px</span>
+                </div>
+                <input type="range" id="minThicknessSlider" min="0.1" max="10" value="0.1" step="0.1" class="w-full">
+            </div>
+            
+            <div>
+                <div class="flex justify-between mb-1">
+                    <label class="text-sm font-medium text-slate-300">Contrast</label>
+                    <span id="contrastValue" class="text-xs text-sky-400 font-mono">1.3</span>
+                </div>
+                <input type="range" id="contrastSlider" min="0.5" max="3" value="1.3" step="0.1" class="w-full">
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+                 <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="invertLogic" class="sr-only peer">
+                    <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-sky-500"></div>
+                    <span class="ml-2 text-sm text-slate-300">Invert Logic</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Export Settings -->
+        <div class="mt-auto pt-6 border-t border-slate-800 space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Canvas Size</label>
+                <select id="sizeSelect" class="w-full bg-slate-800 text-slate-300 text-sm rounded p-2 border border-slate-700 focus:border-sky-500 outline-none">
+                    <option value="1920x1080" selected>Landscape (1920 x 1080)</option>
+                    <option value="1080x1920">Portrait (1080 x 1920)</option>
+                    <option value="2160x2160">Square (2160 x 2160)</option>
+                </select>
+            </div>
+
+            <div class="flex gap-2">
+                <select id="formatSelect" class="bg-slate-800 text-slate-300 text-sm rounded p-2 border border-slate-700 flex-1 outline-none focus:border-sky-500">
+                    <option value="webp" selected>WebP Image</option>
+                    <option value="png">PNG Image</option>
+                </select>
+                <button id="downloadBtn" class="flex-[2] bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 px-4 rounded shadow-lg shadow-sky-500/20 transition-all transform hover:scale-[1.02]">
+                    Download
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Canvas Area -->
+    <div class="flex-1 bg-black flex items-center justify-center p-4 canvas-container relative overflow-hidden">
+        <div id="loadingMsg" class="absolute text-slate-400 bg-slate-900/80 px-4 py-2 rounded backdrop-blur-sm animate-pulse pointer-events-none z-20" style="display:none;">
+            Processing...
+        </div>
+        <!-- We use a wrapper to center the canvas and handle scaling -->
+        <div class="relative shadow-2xl rounded-sm max-w-full max-h-full flex items-center justify-center">
+            <canvas id="mainCanvas" class="max-w-full max-h-full object-contain"></canvas>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * The Engine Room
+         */
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+        const fileInput = document.getElementById('imageInput');
+        
+        // State variables
+        let sourceImage = new Image();
+        let imageLoaded = false;
+        
+        // Helper canvas to read pixel data efficiently
+        const bufferCanvas = document.createElement('canvas');
+        const bufferCtx = bufferCanvas.getContext('2d');
+
+        // Defaults object for easy resetting
+        const defaults = {
+            gap: 12,
+            maxThickness: 12,
+            minThickness: 0.1,
+            contrast: 1.3,
+            invertLogic: false,
+            lineColor: '#FC4F4F',
+            bgColor: '#ffffff',
+            width: 1920,
+            height: 1080,
+            format: 'webp',
+            sizeLabel: '1920x1080'
+        };
+
+        // Configuration (starts with defaults)
+        const config = { ...defaults };
+
+        // UI Elements
+        const ui = {
+            gap: document.getElementById('gapSlider'),
+            thick: document.getElementById('thicknessSlider'),
+            thin: document.getElementById('minThicknessSlider'),
+            contrast: document.getElementById('contrastSlider'),
+            invert: document.getElementById('invertLogic'),
+            
+            lineColor: document.getElementById('lineColorInput'),
+            lineColorText: document.getElementById('lineColorText'),
+            bgColor: document.getElementById('bgColorInput'),
+            bgColorText: document.getElementById('bgColorText'),
+            
+            size: document.getElementById('sizeSelect'),
+            format: document.getElementById('formatSelect'),
+            
+            download: document.getElementById('downloadBtn'),
+            reset: document.getElementById('resetBtn'),
+            loading: document.getElementById('loadingMsg'),
+            
+            // Value displays
+            gapVal: document.getElementById('gapValue'),
+            thickVal: document.getElementById('thickValue'),
+            thinVal: document.getElementById('thinValue'),
+            contrastVal: document.getElementById('contrastValue')
+        };
+
+        // Initialize
+        function init() {
+            updateCanvasSize();
+            // drawPlaceholder is called inside updateCanvasSize
+        }
+
+        function updateCanvasSize() {
+            // Check if ui.size.value contains 'x' or is just a preset key
+            const val = ui.size.value;
+            if(val.includes('x')) {
+                const [w, h] = val.split('x').map(Number);
+                config.width = w;
+                config.height = h;
+            }
+            
+            canvas.width = config.width;
+            canvas.height = config.height;
+            
+            // Redraw immediately if image exists, otherwise placeholder
+            if (imageLoaded) render();
+            else drawPlaceholder();
+        }
+
+        function resetToDefaults() {
+            // Reset config
+            Object.assign(config, defaults);
+            
+            // Reset UI Slider Values
+            ui.gap.value = config.gap;
+            ui.thick.value = config.maxThickness;
+            ui.thin.value = config.minThickness;
+            ui.contrast.value = config.contrast;
+            ui.invert.checked = config.invertLogic;
+            
+            // Reset Labels
+            ui.gapVal.textContent = config.gap + 'px';
+            ui.thickVal.textContent = config.maxThickness + 'px';
+            ui.thinVal.textContent = config.minThickness + 'px';
+            ui.contrastVal.textContent = config.contrast;
+            
+            // Reset Colors
+            ui.lineColor.value = config.lineColor;
+            ui.lineColorText.value = config.lineColor;
+            ui.bgColor.value = config.bgColor;
+            ui.bgColorText.value = config.bgColor;
+            
+            // Reset Dropdowns
+            ui.size.value = config.sizeLabel;
+            ui.format.value = config.format;
+            
+            // Trigger update
+            updateCanvasSize();
+        }
+
+        function drawPlaceholder() {
+            ctx.fillStyle = config.bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            // Calculate max radius to cover the furthest corner
+            const maxRadius = Math.sqrt(Math.pow(Math.max(centerX, canvas.width-centerX), 2) + Math.pow(Math.max(centerY, canvas.height-centerY), 2));
+
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = config.lineColor;
+            
+            const step = parseInt(config.gap);
+
+            // Start closer to center (step / 2) to reduce hole size
+            for (let r = step / 2; r < maxRadius; r += step) {
+                ctx.beginPath();
+                // Close the loop by going slightly past 2PI
+                for (let angle = 0; angle <= Math.PI * 2 + 0.1; angle += 0.05) {
+                    const x = centerX + Math.cos(angle) * r;
+                    const y = centerY + Math.sin(angle) * r;
+                    
+                    const dist = Math.sqrt((x-centerX)**2 + (y-centerY)**2);
+                    const wave = Math.sin(dist * 0.02) * Math.cos(angle * 5);
+                    const thickness = map(wave, -1, 1, parseFloat(config.minThickness), parseFloat(config.maxThickness));
+                    
+                    ctx.lineWidth = thickness;
+                    if (angle === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                    
+                    ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                }
+            }
+        }
+
+        function render() {
+            if (!imageLoaded) return;
+            
+            ui.loading.style.display = 'block';
+            ui.loading.textContent = "Rendering Canvas...";
+
+            requestAnimationFrame(() => {
+                // 1. Clear & Fill Background
+                ctx.fillStyle = config.bgColor;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // 2. Setup Line
+                ctx.strokeStyle = config.lineColor;
+                ctx.lineCap = 'butt';
+
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                // Calculate max radius to cover the corners for rectangle
+                const maxRadius = Math.sqrt(centerX * centerX + centerY * centerY) * (canvas.width > canvas.height ? (canvas.width/canvas.height) : 1.5); 
+                // A simpler robust calculation for maxRadius to corner:
+                const realMaxRadius = Math.sqrt(Math.pow(canvas.width/2, 2) + Math.pow(canvas.height/2, 2));
+
+
+                // 3. Prepare Image Data (Resized to fit canvas)
+                bufferCanvas.width = config.width;
+                bufferCanvas.height = config.height;
+                
+                // Scale image to 'cover' the canvas (aspect ratio fill)
+                const scale = Math.max(config.width / sourceImage.width, config.height / sourceImage.height);
+                const x = (config.width / 2) - (sourceImage.width / 2) * scale;
+                const y = (config.height / 2) - (sourceImage.height / 2) * scale;
+                
+                bufferCtx.clearRect(0,0, config.width, config.height);
+                bufferCtx.drawImage(sourceImage, x, y, sourceImage.width * scale, sourceImage.height * scale);
+                
+                const pixelData = bufferCtx.getImageData(0, 0, config.width, config.height).data;
+
+                // 4. Draw Loops
+                const step = parseInt(config.gap);
+                
+                // Start r at step/2 (50% smaller hole)
+                for (let r = step / 2; r < realMaxRadius + step; r += step) {
+                    ctx.beginPath();
+                    
+                    const circumference = 2 * Math.PI * r;
+                    // Aim for segment length of ~2px for smoothness
+                    const angleStep = (Math.PI * 2) / (circumference / 2); 
+                    const safeAngleStep = Math.max(angleStep, 0.01); 
+
+                    let firstPoint = true;
+                    
+                    // Close the loop by going slightly past 2PI
+                    for (let angle = 0; angle <= Math.PI * 2 + safeAngleStep; angle += safeAngleStep) {
+                        const x = centerX + Math.cos(angle) * r;
+                        const y = centerY + Math.sin(angle) * r;
+
+                        // FIX: Removed strict bounds check (continue block) to allow drawing over edges
+                        
+                        // Clamp coordinates to image bounds for pixel lookup
+                        // This prevents errors when x/y go off-canvas, while still allowing the line to be drawn
+                        const lookupX = Math.max(0, Math.min(config.width - 1, Math.floor(x)));
+                        const lookupY = Math.max(0, Math.min(config.height - 1, Math.floor(y)));
+
+                        // Pixel lookup uses full width
+                        const pixelIndex = (lookupY * config.width + lookupX) * 4;
+                        const red = pixelData[pixelIndex];
+                        const green = pixelData[pixelIndex + 1];
+                        const blue = pixelData[pixelIndex + 2];
+                        
+                        let brightness = (0.299 * red + 0.587 * green + 0.114 * blue) / 255; // 0 (dark) to 1 (light)
+
+                        // Contrast
+                        brightness = (brightness - 0.5) * config.contrast + 0.5;
+                        brightness = Math.max(0, Math.min(1, brightness));
+
+                        let thickness;
+                        if(config.invertLogic) {
+                             // Light = Thick
+                             thickness = map(brightness, 0, 1, parseFloat(config.minThickness), parseFloat(config.maxThickness));
+                        } else {
+                             // Dark = Thick
+                             thickness = map(brightness, 0, 1, parseFloat(config.maxThickness), parseFloat(config.minThickness));
+                        }
+
+                        ctx.lineWidth = thickness;
+
+                        if (firstPoint) {
+                            ctx.moveTo(x, y);
+                            firstPoint = false;
+                        } else {
+                            ctx.lineTo(x, y);
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.moveTo(x, y);
+                        }
+                    }
+                }
+                
+                ui.loading.style.display = 'none';
+            });
+        }
+
+        function triggerDownload(url, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = url;
+            link.click();
+        }
+
+        function map(value, low1, high1, low2, high2) {
+            return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+        }
+
+        // --- Event Listeners ---
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    sourceImage = new Image();
+                    sourceImage.onload = () => {
+                        imageLoaded = true;
+                        render();
+                    };
+                    sourceImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Config Updates
+        const updateConfig = (key, valueElement, isFloat = false) => (e) => {
+            config[key] = isFloat ? parseFloat(e.target.value) : parseInt(e.target.value);
+            if(valueElement) valueElement.textContent = config[key] + (isFloat ? '' : 'px');
+            if (imageLoaded) render(); else drawPlaceholder();
+        };
+
+        ui.gap.addEventListener('input', updateConfig('gap', ui.gapVal));
+        ui.thick.addEventListener('input', updateConfig('maxThickness', ui.thickVal, true));
+        ui.thin.addEventListener('input', updateConfig('minThickness', ui.thinVal, true));
+        ui.contrast.addEventListener('input', updateConfig('contrast', ui.contrastVal, true));
+
+        // Sync Color Inputs (Picker <-> Text)
+        function updateColor(key, value) {
+            config[key] = value;
+            if(key === 'lineColor') {
+                ui.lineColor.value = value;
+                ui.lineColorText.value = value;
+            } else {
+                ui.bgColor.value = value;
+                ui.bgColorText.value = value;
+            }
+            if (imageLoaded) render(); else drawPlaceholder();
+        }
+
+        // Line Color Listeners
+        ui.lineColor.addEventListener('input', (e) => updateColor('lineColor', e.target.value));
+        ui.lineColorText.addEventListener('input', (e) => updateColor('lineColor', e.target.value));
+        ui.lineColorText.addEventListener('change', (e) => {
+            // Validate hex on blur/enter
+            if(!/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                e.target.value = config.lineColor; // Revert if invalid
+            } else {
+                updateColor('lineColor', e.target.value);
+            }
+        });
+
+        // Bg Color Listeners
+        ui.bgColor.addEventListener('input', (e) => updateColor('bgColor', e.target.value));
+        ui.bgColorText.addEventListener('input', (e) => updateColor('bgColor', e.target.value));
+        ui.bgColorText.addEventListener('change', (e) => {
+             if(!/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                e.target.value = config.bgColor;
+            } else {
+                updateColor('bgColor', e.target.value);
+            }
+        });
+
+
+        // Invert Logic
+        ui.invert.addEventListener('change', (e) => {
+            config.invertLogic = e.target.checked;
+            if (imageLoaded) render(); else drawPlaceholder();
+        });
+
+        // Size
+        ui.size.addEventListener('change', (e) => {
+            updateCanvasSize();
+        });
+
+        // Reset
+        ui.reset.addEventListener('click', resetToDefaults);
+
+        // Download Handler
+        ui.download.addEventListener('click', () => {
+            const format = ui.format.value;
+            
+            ui.loading.style.display = 'block';
+            ui.loading.textContent = "Encoding...";
+
+            // Use setTimeout to allow UI to render the loading message
+            setTimeout(() => {
+                let url;
+                let filename;
+
+                if (format === 'webp') {
+                    // WebP export (0.9 quality)
+                    url = canvas.toDataURL('image/webp', 0.9);
+                    filename = 'circle-pattern-pro.webp';
+                } else {
+                    url = canvas.toDataURL('image/png');
+                    filename = 'circle-pattern-pro.png';
+                }
+                
+                triggerDownload(url, filename);
+                ui.loading.style.display = 'none';
+            }, 50);
+        });
+
+        // Boot
+        init();
+
+    </script>
+</body>
+</html>
