@@ -63,16 +63,9 @@
             border-radius: 50%;
         }
 
-        /* Light gray checkered background */
+        /* UPDATED: Solid background color matching bg-gray-50 (#f9fafb), removed checkerboard */
         .canvas-container {
-            background-color: #f8fafc; /* Very light slate/white base */
-            background-image: 
-                linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
-                linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
-                linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
-                linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            background-color: #f9fafb; 
         }
         
         /* Details summary marker styling */
@@ -92,11 +85,11 @@
         
         <!-- Header with Logo -->
         <div class="flex items-center gap-3 shrink-0">
-            <!-- SVG Logo -->
+            <!-- UPDATED: SVG Logo with fill-rule="evenodd" to fix filled inner parts -->
             <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
-                <path d="M57.6436 18.323C56.1329 14.7506 53.9693 11.5425 51.2148 8.78725C48.4596 6.03205 45.2515 3.86922 41.6791 2.35844C37.9791 0.793544 34.0503 0 30.0007 0C25.9511 0 22.0222 0.793545 18.323 2.35774C14.7506 3.86853 11.5425 6.03205 8.78725 8.78656C6.03205 11.5418 3.86922 14.7499 2.35844 18.3223C0.793544 22.0222 0 25.9511 0 30.0007C0 34.0503 0.793545 37.9791 2.35774 41.6784C3.86853 45.2508 6.03205 48.4589 8.78656 51.2141C11.5418 53.9693 14.7499 56.1322 18.3223 57.643C22.0215 59.2078 25.9504 60.0007 30 60.0007C34.0496 60.0007 37.9785 59.2071 41.6777 57.643C45.2501 56.1322 48.4582 53.9686 51.2134 51.2141C53.9686 48.4589 56.1315 45.2508 57.6423 41.6784C59.2072 37.9791 60 34.0503 60 30.0007C60 25.9511 59.2065 22.0222 57.6423 18.323H57.6436ZM55.8013 40.8994C54.3911 44.2339 52.3718 47.2284 49.8005 49.7998C47.2284 52.3718 44.2339 54.3904 40.8994 55.8013C37.4478 57.2614 33.7811 58.0016 30.0007 58.0016C26.2203 58.0016 22.5536 57.2614 19.1019 55.8013C15.7675 54.3911 12.773 52.3718 10.2009 49.7998C7.62885 47.2277 5.6103 44.2332 4.2001 40.8994C2.74064 37.4478 1.99981 33.7811 1.99981 30.0007C1.99981 26.2203 2.73995 22.5536 4.2001 19.1019C5.6103 15.7675 7.62954 12.773 10.2009 10.2016C12.773 7.62954 15.7675 5.611 19.1019 4.2001C22.5536 2.73995 26.2203 1.99981 30.0007 1.99981C33.7811 1.99981 37.4478 2.73995 40.8994 4.2001C44.2339 5.6103 47.2284 7.62954 49.8005 10.2016C52.3725 12.7737 54.3911 15.7682 55.8013 19.1019C57.2607 22.5536 58.0016 26.2203 58.0016 30.0007C58.0016 33.7811 57.2614 37.4478 55.8013 40.8994Z" fill="#FC4F4F"/>
-                <path d="M19.3052 30.0007C19.3052 24.1157 24.0928 19.3281 29.9778 19.3281C35.8628 19.3281 40.6504 24.1157 40.6504 30.0007C40.6504 34.472 37.8862 38.3086 33.9774 39.8943V42.0259C39.0113 40.3473 42.6509 35.5916 42.6509 30.0014C42.6509 23.0135 36.9664 17.329 29.9785 17.329C22.9906 17.329 17.3061 23.0135 17.3061 30.0014C17.3061 35.5784 20.9283 40.3251 25.9428 42.0141V39.8798C22.0528 38.285 19.3059 34.4581 19.3059 30.0014L19.3052 30.0007Z" fill="#FC4F4F"/>
-                <path d="M29.9889 8.66451C24.2898 8.66451 18.9313 10.8842 14.9019 14.9137C10.8717 18.9438 8.65273 24.3016 8.65273 30.0007C8.65273 35.6998 10.8724 41.0583 14.9019 45.0878C18.9313 49.1172 24.2898 51.3369 29.9889 51.3369C35.688 51.3369 41.0465 49.1172 45.076 45.0878C49.1055 41.0583 51.3252 35.6998 51.3252 30.0007C51.3252 24.3016 49.1055 18.9431 45.076 14.9137C41.0458 10.8835 35.688 8.66451 29.9889 8.66451ZM43.6623 43.6734C40.228 47.1077 35.7297 49.0902 30.9108 49.3149L30.9379 33.8741C32.7719 33.4052 34.0676 31.6815 33.9331 29.7253C33.7812 27.5216 31.8715 25.8575 29.6678 26.0094C27.464 26.1613 25.7999 28.071 25.9519 30.2747C26.0746 32.0602 27.3517 33.4912 29.0046 33.8894L28.9776 49.3101C24.1927 49.0652 19.7291 47.0855 16.3169 43.6727C12.6648 40.0206 10.6532 35.165 10.6532 30C10.6532 24.8351 12.6648 19.9795 16.3169 16.3273C19.9691 12.6752 24.8247 10.6636 29.9896 10.6636C35.1546 10.6636 40.0102 12.6752 43.6623 16.3273C47.3144 19.9795 49.326 24.8351 49.326 30C49.326 35.165 47.3144 40.0206 43.6623 43.6727V43.6734Z" fill="#FC4F4F"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M57.6436 18.323C56.1329 14.7506 53.9693 11.5425 51.2148 8.78725C48.4596 6.03205 45.2515 3.86922 41.6791 2.35844C37.9791 0.793544 34.0503 0 30.0007 0C25.9511 0 22.0222 0.793545 18.323 2.35774C14.7506 3.86853 11.5425 6.03205 8.78725 8.78656C6.03205 11.5418 3.86922 14.7499 2.35844 18.3223C0.793544 22.0222 0 25.9511 0 30.0007C0 34.0503 0.793545 37.9791 2.35774 41.6784C3.86853 45.2508 6.03205 48.4589 8.78656 51.2141C11.5418 53.9693 14.7499 56.1322 18.3223 57.643C22.0215 59.2078 25.9504 60.0007 30 60.0007C34.0496 60.0007 37.9785 59.2071 41.6777 57.643C45.2501 56.1322 48.4582 53.9686 51.2134 51.2141C53.9686 48.4589 56.1315 45.2508 57.6423 41.6784C59.2072 37.9791 60 34.0503 60 30.0007C60 25.9511 59.2065 22.0222 57.6423 18.323H57.6436ZM55.8013 40.8994C54.3911 44.2339 52.3718 47.2284 49.8005 49.7998C47.2284 52.3718 44.2339 54.3904 40.8994 55.8013C37.4478 57.2614 33.7811 58.0016 30.0007 58.0016C26.2203 58.0016 22.5536 57.2614 19.1019 55.8013C15.7675 54.3911 12.773 52.3718 10.2009 49.7998C7.62885 47.2277 5.6103 44.2332 4.2001 40.8994C2.74064 37.4478 1.99981 33.7811 1.99981 30.0007C1.99981 26.2203 2.73995 22.5536 4.2001 19.1019C5.6103 15.7675 7.62954 12.773 10.2009 10.2016C12.773 7.62954 15.7675 5.611 19.1019 4.2001C22.5536 2.73995 26.2203 1.99981 30.0007 1.99981C33.7811 1.99981 37.4478 2.73995 40.8994 4.2001C44.2339 5.6103 47.2284 7.62954 49.8005 10.2016C52.3725 12.7737 54.3911 15.7682 55.8013 19.1019C57.2607 22.5536 58.0016 26.2203 58.0016 30.0007C58.0016 33.7811 57.2614 37.4478 55.8013 40.8994Z" fill="#FC4F4F"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.3052 30.0007C19.3052 24.1157 24.0928 19.3281 29.9778 19.3281C35.8628 19.3281 40.6504 24.1157 40.6504 30.0007C40.6504 34.472 37.8862 38.3086 33.9774 39.8943V42.0259C39.0113 40.3473 42.6509 35.5916 42.6509 30.0014C42.6509 23.0135 36.9664 17.329 29.9785 17.329C22.9906 17.329 17.3061 23.0135 17.3061 30.0014C17.3061 35.5784 20.9283 40.3251 25.9428 42.0141V39.8798C22.0528 38.285 19.3059 34.4581 19.3059 30.0014L19.3052 30.0007Z" fill="#FC4F4F"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M29.9889 8.66451C24.2898 8.66451 18.9313 10.8842 14.9019 14.9137C10.8717 18.9438 8.65273 24.3016 8.65273 30.0007C8.65273 35.6998 10.8724 41.0583 14.9019 45.0878C18.9313 49.1172 24.2898 51.3369 29.9889 51.3369C35.688 51.3369 41.0465 49.1172 45.076 45.0878C49.1055 41.0583 51.3252 35.6998 51.3252 30.0007C51.3252 24.3016 49.1055 18.9431 45.076 14.9137C41.0458 10.8835 35.688 8.66451 29.9889 8.66451ZM43.6623 43.6734C40.228 47.1077 35.7297 49.0902 30.9108 49.3149L30.9379 33.8741C32.7719 33.4052 34.0676 31.6815 33.9331 29.7253C33.7812 27.5216 31.8715 25.8575 29.6678 26.0094C27.464 26.1613 25.7999 28.071 25.9519 30.2747C26.0746 32.0602 27.3517 33.4912 29.0046 33.8894L28.9776 49.3101C24.1927 49.0652 19.7291 47.0855 16.3169 43.6727C12.6648 40.0206 10.6532 35.165 10.6532 30C10.6532 24.8351 12.6648 19.9795 16.3169 16.3273C19.9691 12.6752 24.8247 10.6636 29.9896 10.6636C35.1546 10.6636 40.0102 12.6752 43.6623 16.3273C47.3144 19.9795 49.326 24.8351 49.326 30C49.326 35.165 47.3144 40.0206 43.6623 43.6727V43.6734Z" fill="#FC4F4F"/>
             </svg>
 
             <div>
@@ -109,7 +102,7 @@
 
         <!-- Upload Section -->
         <div class="p-4 border border-dashed border-gray-300 rounded-lg hover:border-[#FC4F4F] transition-colors bg-gray-50 shrink-0">
-            <label class="block text-sm font-medium text-[#000000] mb-2">1. Upload Image</label>
+            <label class="block text-sm font-medium text-[#000000] mb-2">Upload Image</label>
             <input type="file" id="imageInput" accept="image/*" class="block w-full text-sm text-gray-600
               file:mr-4 file:py-2 file:px-4
               file:rounded-full file:border-0
@@ -122,7 +115,8 @@
 
         <!-- Reset Button -->
         <div class="shrink-0">
-            <button id="resetBtn" class="w-full text-xs text-gray-500 hover:text-black border border-gray-300 hover:border-black rounded py-2 transition-colors">
+            <!-- UPDATED: Added rounded-full for pill shape -->
+            <button id="resetBtn" class="w-full text-xs text-gray-500 hover:text-black border border-gray-300 hover:border-black rounded-full py-2 transition-colors">
                 Revert to default settings
             </button>
         </div>
@@ -130,11 +124,17 @@
         <!-- Canvas Size (Moved to top, above Contrast) -->
         <div class="shrink-0">
             <label class="block text-sm font-medium text-[#000000] mb-2">Canvas Size</label>
-            <select id="sizeSelect" class="w-full bg-gray-50 text-[#000000] text-sm rounded p-2 border border-gray-300 focus:border-[#FC4F4F] outline-none">
-                <option value="1920x1080" selected>Landscape (1920 x 1080)</option>
-                <option value="1080x1920">Portrait (1080 x 1920)</option>
-                <option value="2160x2160">Square (2160 x 2160)</option>
-            </select>
+            <!-- UPDATED: Custom select styling to match advanced settings chevron -->
+            <div class="relative">
+                <select id="sizeSelect" class="w-full appearance-none bg-gray-50 text-[#000000] text-sm rounded-lg p-3 pr-10 border border-gray-200 focus:border-[#FC4F4F] outline-none cursor-pointer hover:bg-gray-100 transition-colors">
+                    <option value="1920x1080" selected>Landscape (1920 x 1080)</option>
+                    <option value="1080x1920">Portrait (1080 x 1920)</option>
+                    <option value="2160x2160">Square (2160 x 2160)</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-black">
+                     <svg fill="none" height="20" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                </div>
+            </div>
         </div>
 
         <!-- Contrast Slider -->
@@ -158,22 +158,26 @@
                 
                 <!-- Color Controls -->
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-gray-100 p-3 rounded-lg flex flex-col items-center">
+                    <!-- UPDATED: bg-gray-50 border border-gray-200 to match container, removed bold from label -->
+                    <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg flex flex-col items-center">
                         <label class="text-xs text-[#000000] mb-2">Line Color</label>
-                        <div class="flex items-center gap-2">
+                        <!-- UPDATED: Added flex-col to stack items vertically -->
+                        <div class="flex flex-col items-center gap-2 w-full">
                             <div class="color-wrapper hover:scale-110 transition-transform">
                                 <input type="color" id="lineColorInput" value="#FC4F4F">
                             </div>
-                            <input type="text" id="lineColorText" value="#FC4F4F" class="w-16 bg-transparent text-xs text-[#000000] font-mono border-b border-gray-300 focus:border-[#FC4F4F] outline-none text-center pb-1 uppercase">
+                            <input type="text" id="lineColorText" value="#FC4F4F" class="w-20 bg-transparent text-xs text-[#000000] font-mono border-b border-gray-300 focus:border-[#FC4F4F] outline-none text-center pb-1 uppercase">
                         </div>
                     </div>
-                    <div class="bg-gray-100 p-3 rounded-lg flex flex-col items-center">
+                    <!-- UPDATED: bg-gray-50 border border-gray-200 to match container, removed bold from label -->
+                    <div class="bg-gray-50 border border-gray-200 p-3 rounded-lg flex flex-col items-center">
                         <label class="text-xs text-[#000000] mb-2">Background</label>
-                        <div class="flex items-center gap-2">
+                        <!-- UPDATED: Added flex-col to stack items vertically -->
+                        <div class="flex flex-col items-center gap-2 w-full">
                             <div class="color-wrapper hover:scale-110 transition-transform">
                                 <input type="color" id="bgColorInput" value="#ffffff">
                             </div>
-                            <input type="text" id="bgColorText" value="#ffffff" class="w-16 bg-transparent text-xs text-[#000000] font-mono border-b border-gray-300 focus:border-[#FC4F4F] outline-none text-center pb-1 uppercase">
+                            <input type="text" id="bgColorText" value="#ffffff" class="w-20 bg-transparent text-xs text-[#000000] font-mono border-b border-gray-300 focus:border-[#FC4F4F] outline-none text-center pb-1 uppercase">
                         </div>
                     </div>
                 </div>
@@ -227,7 +231,8 @@
         <!-- Export Settings (Just Download Button now) -->
         <div class="mt-auto pt-6 pb-4 border-t border-gray-200 space-y-4 shrink-0">
             <!-- Download Button -->
-            <button id="downloadBtn" class="w-full bg-[#FC4F4F] hover:bg-red-600 text-white font-bold py-3 px-4 rounded shadow-lg shadow-red-500/20 transition-all transform hover:scale-[1.02]">
+            <!-- UPDATED: Added rounded-full for pill shape -->
+            <button id="downloadBtn" class="w-full bg-[#FC4F4F] hover:bg-red-600 text-white font-bold py-3 px-4 rounded-full shadow-lg shadow-red-500/20 transition-all transform hover:scale-[1.02]">
                 Download
             </button>
         </div>
