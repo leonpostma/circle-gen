@@ -80,8 +80,8 @@
 <body class="h-screen flex flex-col md:flex-row overflow-hidden">
 
     <!-- Sidebar Controls -->
-    <!-- UPDATED: Removed 'no-scrollbar' class to ensure scrollbar is visible when content expands -->
-    <div class="w-full md:w-80 bg-[#FFFFFF] border-r border-gray-200 p-6 flex flex-col gap-5 overflow-y-auto z-10 shadow-xl text-black">
+    <!-- UPDATED: Added order-2 for mobile, md:order-1 for desktop. Changed border logic for mobile/desktop separation. Added flex-1 for mobile scroll. -->
+    <div class="w-full md:w-80 bg-[#FFFFFF] md:border-r border-t md:border-t-0 border-gray-200 p-6 flex flex-col gap-5 overflow-y-auto z-10 shadow-xl text-black order-2 md:order-1 flex-1 md:flex-none">
         
         <!-- Header with Logo -->
         <div class="flex items-center gap-3 shrink-0">
@@ -255,8 +255,9 @@
     </div>
 
     <!-- Main Canvas Area -->
-    <!-- UPDATED: Switched to relative positioning parent with absolute child for strict sizing -->
-    <div class="flex-1 canvas-container relative overflow-hidden min-h-0 min-w-0">
+    <!-- UPDATED: Switched to relative positioning parent with absolute child for strict sizing. 
+         Added order-1 for mobile, h-[320px] fixed height for mobile, flex-1 for desktop. -->
+    <div class="h-[320px] shrink-0 md:h-auto md:flex-1 canvas-container relative overflow-hidden min-h-0 min-w-0 order-1 md:order-2">
         <div id="loadingMsg" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-slate-500 bg-white/90 px-4 py-2 rounded backdrop-blur-sm animate-pulse pointer-events-none z-20 shadow-lg border border-gray-200" style="display:none;">
             Processing...
         </div>
